@@ -1,0 +1,29 @@
+grammar org.xtext.example.mydsl.MyDsl with org.eclipse.xtext.common.Terminals
+
+generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
+
+// Model : Racine du fichier Model:
+Model:
+	S+= INSTRUCTION*;
+
+S: INSTRUCTION | '{' S '}';
+
+INSTRUCTION:
+	DECLARATION_VAR | AFFECTATION_VAR | DECLARATION_FONCTION;
+	
+DECLARATION_VAR:
+	VARIABLE CHAINE ';' ;
+
+AFFECTATION_VAR:
+	CHAINE EGAL NOMBRE ';';
+
+DECLARATION_FONCTION:
+	FONCTION CHAINE '('  ')' '{''}' ';'; 
+	
+
+	
+terminal VARIABLE : 'var';	
+terminal EGAL: '=';
+terminal FONCTION: 'fonction';
+terminal CHAINE : ('a'..'z'|'A'..'Z')*;
+terminal NOMBRE returns ecore::EInt: ('0'..'9')+;
